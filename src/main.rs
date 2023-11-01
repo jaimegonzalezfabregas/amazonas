@@ -11,7 +11,7 @@ use Cell::*;
 impl Cell {
     fn print(&self) {
         match self {
-            Void => print!("[]"),
+            Void => print!(". "),
             Amazon => print!("A "),
             Tree => print!("T "),
         }
@@ -200,7 +200,7 @@ impl Board {
 
         let step_nn = -(self.side as isize) - 1;
         let cleareance_nn = (cell_x).min(cell_y) as isize;
-        let cleareance_nn_offset = cleareance_nn * self.side as isize;
+        let cleareance_nn_offset = cleareance_nn + cleareance_nn * self.side as isize;
         // println!("step_nn: {step_nn} | cleareance_nn: {cleareance_nn} | cleareance_nn_offset: {cleareance_nn_offset}");
 
         self.is_threatened_raytrace(
@@ -307,6 +307,6 @@ fn backtrack(
 fn main() {
     let side = 8;
     let mut base_board = Board::new(side);
-    let mut best_tree_count = side*side; // shotcut
+    let mut best_tree_count = 4;
     backtrack(&mut base_board, 0, &mut best_tree_count, &mut 0, &mut 0);
 }
